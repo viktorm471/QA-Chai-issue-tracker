@@ -10,8 +10,18 @@ const apiRoutes         = require('./routes/api.js');
 const fccTestingRoutes  = require('./routes/fcctesting.js');
 const runner            = require('./test-runner');
 
+ const mongoose= require("mongoose");
+
+
 let app = express();
 
+mongoose.connect(process.env.MONGO_URI, {useUnifiedTopology:true, useNewUrlParser:true}, (err)=>{
+  if(err){
+    console.log(err)
+  }else{
+    console.log("conexion exitosa")
+  }
+});
 app.use('/public', express.static(process.cwd() + '/public'));
 
 app.use(cors({origin: '*'})); //For FCC testing purposes only
